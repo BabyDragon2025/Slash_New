@@ -23,7 +23,7 @@ protected:
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")//BlueprintReadOnly等不可放到私有对象里面。
 	float Amplitude = 0.25f;
 
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")//加上Category可进行分类，不加则不分类,这种暴露函数结尾无分号
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category = "Sine Parameters")//加上Category可进行分类，不加则不分类,这种暴露函数结尾无分号.
 	float TimeConstant = 5.f;
 
 	UFUNCTION(BlueprintPure) //暴露函数给蓝图，注意不要加分号。
