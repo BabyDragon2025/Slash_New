@@ -40,6 +40,9 @@ private:
 	//加入这个元指定符meta=(AllowPrivateAccess="true")，事件列表也可以访问私有变量
 	float RunningTime;
 
+	UPROPERTY(VisibleAnywhere)
+	UStaticMeshComponent* ItemMesh;//设置一个U属性的物体网络指针，并且让它“随处可见”，参与反射系统和蓝图。
+
 	
 };
 
