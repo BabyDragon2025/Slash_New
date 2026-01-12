@@ -6,7 +6,8 @@
 #include "GameFramework/Pawn.h"
 #include "Bird.generated.h"
 
-class UCapsuleComponent; //提前声明
+class UCapsuleComponent; //提前声明胶囊体
+class USkeletalMeshComponent; //提前声明骨骼网络组件
 
 UCLASS()
 class SLASH_NEW_API ABird : public APawn  //Pawn派生自Actor，ABird是Actor的子类，编辑器会帮我们自动去掉A。
@@ -26,5 +27,6 @@ private:
 	UPROPERTY(VisibleAnywhere);//把胶囊体暴露给蓝图。
 	UCapsuleComponent* Capsule; //建立胶囊体指针。准备设置胶囊体。
 
-
+	UPROPERTY(VisibleAnywhere);
+	USkeletalMeshComponent* BirdMesh;//建立骨骼网络类型指针，小鸟的。
 };
