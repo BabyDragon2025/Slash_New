@@ -4,8 +4,9 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
-#include "Components/CapsuleComponent.h"// 胶囊体头文件
 #include "Bird.generated.h"
+
+class UCapsuleComponent; //提前声明
 
 UCLASS()
 class SLASH_NEW_API ABird : public APawn  //Pawn派生自Actor，ABird是Actor的子类，编辑器会帮我们自动去掉A。

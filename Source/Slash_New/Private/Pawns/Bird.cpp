@@ -2,7 +2,7 @@
 
 
 #include "Pawns/Bird.h"
-
+#include "Components/CapsuleComponent.h"// 胶囊体头文件
 
 ABird::ABird()  
 {
