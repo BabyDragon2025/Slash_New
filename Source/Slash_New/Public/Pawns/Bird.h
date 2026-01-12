@@ -4,6 +4,7 @@
 
 #include "CoreMinimal.h"
 #include "GameFramework/Pawn.h"
+#include "Components/CapsuleComponent.h"// 胶囊体头文件
 #include "Bird.generated.h"
 
 UCLASS()
@@ -20,7 +21,9 @@ public:
 	
 protected:
 	virtual void BeginPlay() override;
-
+private:
+	UPROPERTY(VisibleAnywhere);//把胶囊体暴露给蓝图。
+	UCapsuleComponent* Capsule; //建立胶囊体指针。准备设置胶囊体。
 
 
 };

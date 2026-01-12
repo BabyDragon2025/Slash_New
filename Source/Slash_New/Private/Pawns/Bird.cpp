@@ -8,6 +8,10 @@ ABird::ABird()
 {
  	PrimaryActorTick.bCanEverTick = true;
 
+	Capsule = CreateDefaultSubobject<UCapsuleComponent>(TEXT("Capsule"));//创建胶囊体并且命名
+	Capsule->SetCapsuleHalfHeight(20.f);//设置胶囊体高度
+	Capsule->SetCapsuleRadius(15.f);//设置胶囊体半径
+	SetRootComponent(Capsule);// 相当于RootComponent = Capsule;修改默认根组件。
 }
 
 
