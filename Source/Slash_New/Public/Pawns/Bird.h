@@ -23,6 +23,7 @@ public:
 	
 protected:
 	virtual void BeginPlay() override;
+	void MoveForward(float Value); //新建一个函数，作为回调函数，处理输入绑定。
 private:
 	UPROPERTY(VisibleAnywhere);//把胶囊体暴露给蓝图。
 	UCapsuleComponent* Capsule; //建立胶囊体指针。准备设置胶囊体。

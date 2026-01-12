@@ -16,6 +16,8 @@ ABird::ABird()
 
 	BirdMesh= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("BirdMesh"));
 	BirdMesh->SetupAttachment(GetRootComponent());//把鸟的模型附加到根组件————胶囊体上。
+
+	AutoPossessPlayer = EAutoReceiveInput::Player0;//EAutoReceiveInput自动控制玩家的类型，这里控制玩家0，也就是我们自己。
 }
 
 
@@ -23,6 +25,12 @@ void ABird::BeginPlay()
 {
 	Super::BeginPlay();
 	
+}
+
+void ABird::MoveForward(float Value)
+{
+	//用UE日志测试一下输入键
+	UE_LOG(LogTemp, Warning, TEXT("Value: %f"), Value);
 }
 
 
@@ -37,5 +45,7 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 {
 	Super::SetupPlayerInputComponent(PlayerInputComponent);  
 
+	//前进函数绑定到前进轴的映射上，参数为：轴映射名字设为MoveForward，this代表该鸟对象，回调函数地址）
+	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward); 
 }
 
