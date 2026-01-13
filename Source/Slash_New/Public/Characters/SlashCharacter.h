@@ -16,6 +16,8 @@ public:
 	ASlashCharacter();
 	virtual void Tick(float DeltaTime) override;
 	virtual void SetupPlayerInputComponent(class UInputComponent* PlayerInputComponent) override;
+protected:
+	void MoveForward(float Value); //Ç°½øº¯Êý¡£
 
 protected:
 	
