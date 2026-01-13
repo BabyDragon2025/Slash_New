@@ -52,6 +52,16 @@ void ABird::MoveForward(float Value)
 	}
 }
 
+void ABird::Turn(float Value)
+{
+	AddControllerYawInput(Value);//调用左右转向函数
+}
+
+void ABird::LookUp(float Value)
+{
+	AddControllerPitchInput(Value); //调用上下转向函数
+}
+
 
 void ABird::Tick(float DeltaTime)
 {
@@ -66,5 +76,8 @@ void ABird::SetupPlayerInputComponent(UInputComponent* PlayerInputComponent)
 
 	//前进函数绑定到前进轴的映射上，参数为：轴映射名字设为MoveForward，this代表该鸟对象，回调函数地址）
 	PlayerInputComponent->BindAxis(FName("MoveForward"), this, &ABird::MoveForward); 
+	//把鼠标的两个操作绑定到轴映射上
+	PlayerInputComponent->BindAxis(FName("Turn"), this, &ABird::Turn);
+	PlayerInputComponent->BindAxis(FName("LookUp"), this, &ABird::LookUp);
 }
 
