@@ -4,6 +4,10 @@
 #include "Pawns/Bird.h"
 #include "Components/CapsuleComponent.h"// 胶囊体头文件
 #include "Components/SkeletalMeshComponent.h"//骨骼网络体头文件
+#include "GameFramework/SpringArmComponent.h"//弹簧臂头文件
+#include "Camera/CameraComponent.h"//摄像机头文件
+
+
 
 ABird::ABird()  
 {
@@ -16,6 +20,16 @@ ABird::ABird()
 
 	BirdMesh= CreateDefaultSubobject<USkeletalMeshComponent>(TEXT("BirdMesh"));
 	BirdMesh->SetupAttachment(GetRootComponent());//把鸟的模型附加到根组件————胶囊体上。
+
+	//改了SpringArm->CamraBoom,来解决蓝图组件空白bug。
+	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));//设置弹簧体组件。
+	CameraBoom->SetupAttachment(GetRootComponent()); //组件附加到根目录下。
+	CameraBoom->TargetArmLength = 300.f;//设置弹簧臂长度。
+
+	//与弹簧臂类似，但是文件设置在弹簧臂目录下
+	ViewCamera = CreateDefaultSubobject<UCameraComponent>(TEXT("ViewCamera"));
+	ViewCamera->SetupAttachment(CameraBoom);
+
 
 	AutoPossessPlayer = EAutoReceiveInput::Player0;//EAutoReceiveInput自动控制玩家的类型，这里控制玩家0，也就是我们自己。
 }
