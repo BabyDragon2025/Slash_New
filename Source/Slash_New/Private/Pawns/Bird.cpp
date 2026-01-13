@@ -29,8 +29,13 @@ void ABird::BeginPlay()
 
 void ABird::MoveForward(float Value)
 {
-	//用UE日志测试一下输入键
-	UE_LOG(LogTemp, Warning, TEXT("Value: %f"), Value);
+	//Pawn类继承了一个Controller变量，检查空指针。
+	if (Controller && (Value != 0.f))
+	{
+		FVector Forward = GetActorForwardVector();// 建立前进向量
+		//AddMovementInput()就是获取这个移动方向，然后交给移动组件处理
+		AddMovementInput(Forward,Value);//使用该前进向量，Value不会影响前进向量，该函数只在乎0、正数、负数。
+	}
 }
 
 
