@@ -4,6 +4,7 @@
 #include "Characters/SlashCharacter.h"
 #include "GameFramework/SpringArmComponent.h"//弹簧臂头文件
 #include "Camera/CameraComponent.h"//摄像
+#include "GameFramework/CharacterMovementComponent.h"//角色移动组件头文件
 
 ASlashCharacter::ASlashCharacter()
 {
@@ -14,6 +15,11 @@ ASlashCharacter::ASlashCharacter()
 	bUseControllerRotationPitch = false;
 	bUseControllerRotationYaw = false;
 	bUseControllerRotationRoll = false;
+
+	//角色移动组件，控制转向速度。
+	GetCharacterMovement()->bOrientRotationToMovement = true;//开启角色转向
+	GetCharacterMovement()->RotationRate = FRotator(0.f, 400.f, 0.f);//设置偏航转向速度。
+
 	
 	//创造摇臂，附加到根组件上
 	CameraBoom = CreateDefaultSubobject<USpringArmComponent>(TEXT("CameraBoom"));
@@ -55,8 +61,15 @@ void ASlashCharacter::MoveForward(float Value)
 {
 	if (Controller && (Value != 0.f))
 	{
-		FVector Forward = GetActorForwardVector();
-		AddMovementInput(Forward, Value);
+		//确定我们的前进方向。
+		//获取旋转角度。不打算改变这个变量->加入const
+		const FRotator ControlRotation = GetControlRotation();
+		//前进等行动角度只关注偏航分量。使用FRotator构造函数。
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+		
+		//创建一个FRotationMatrix，传入偏航角，并且利用FRotationMatrix函数调用GetUnitAxis函数，得到标准化的X方向向量。
+		const FVector Direction=FRotationMatrix(YawRotation).GetUnitAxis(EAxis::X);
+		AddMovementInput(Direction, Value);//增加输入。
 	}
 }
 
@@ -64,8 +77,12 @@ void ASlashCharacter::MoveRight(float Value)
 {
 	if (Controller && (Value != 0.f))
 	{
-		FVector Right = GetActorRightVector();//调用右移函数，获得右移向量
-		AddMovementInput(Right, Value);
+		//确定我们的右边方向。
+		
+		const FRotator ControlRotation = GetControlRotation();
+		const FRotator YawRotation(0.f, ControlRotation.Yaw, 0.f);
+		const FVector Direction = FRotationMatrix(YawRotation).GetUnitAxis(EAxis::Y);//Y向量控制左右。
+		AddMovementInput(Direction, Value);//增加输入。
 	}
 }
 
